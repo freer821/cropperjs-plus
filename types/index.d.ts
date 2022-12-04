@@ -198,6 +198,6 @@ declare class Cropper {
   static setDefaults(options: Cropper.Options<EventTarget>): void;
 }
 
-declare module 'cropperjs' {
+declare module 'cropperjs-plus' {
   export default Cropper;
 }

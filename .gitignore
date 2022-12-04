@@ -5,3 +5,4 @@
 .temp
 coverage
 node_modules
+.idea/
