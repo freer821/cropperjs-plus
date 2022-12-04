@@ -1,7 +1,7 @@
 {
-  "name": "cropperjs",
-  "description": "JavaScript image cropper.",
-  "version": "1.5.13",
+  "name": "cropperjs-plus",
+  "description": "JavaScript image cropper with some improvements.",
+  "version": "1.0.1",
   "main": "dist/cropper.common.js",
   "module": "dist/cropper.esm.js",
   "browser": "dist/cropper.js",
@@ -51,11 +51,11 @@
     "css",
     "javascript",
     "front-end",
-    "web"
+    "web",
+    "tif"
   ],
   "author": {
-    "name": "Chen Fengyuan",
-    "url": "https://chenfengyuan.com/"
+    "name": "ZhenyuGeng"
   },
   "license": "MIT",
   "bugs": {

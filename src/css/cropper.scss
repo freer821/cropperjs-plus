@@ -19,6 +19,7 @@ $cropper-image-path: '../images' !default;
       min-height: 0 !important;
       min-width: 0 !important;
       width: 100%;
+      image-rendering: -webkit-optimize-contrast;
     }
   }
 
