@@ -23,6 +23,26 @@ describe('cropend (event)', () => {
     cropper = new Cropper(image);
   });
 
+  it('should trigger the `cropend` event for tiff', (done) => {
+    const image = window.createTIFImage();
+    let cropper;
+
+    image.addEventListener('ready', () => {
+      const { dragBox } = cropper;
+
+      dragBox.dispatchEvent(window.createEvent(POINTER_DOWN));
+      dragBox.dispatchEvent(window.createEvent(POINTER_MOVE));
+      dragBox.dispatchEvent(window.createEvent(POINTER_UP));
+    });
+
+    image.addEventListener('cropend', (event) => {
+      expect(event.type).to.equal('cropend');
+      done();
+    });
+
+    cropper = new Cropper(image);
+  });
+
   it('should have expected properties in `event.detail`', (done) => {
     const image = window.createImage();
     let cropper;

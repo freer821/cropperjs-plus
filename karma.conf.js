@@ -10,7 +10,7 @@ module.exports = (config) => {
     browsers: ['ChromeHeadless'],
     client: {
       mocha: {
-        timeout: 10000,
+        timeout: 100000,
       },
     },
     coverageIstanbulReporter: {
@@ -23,7 +23,10 @@ module.exports = (config) => {
       'test/specs/**/*.spec.js',
       {
         pattern: 'docs/images/*',
+        watched: false,
         included: false,
+        served: true,
+        nocache: false,
       },
     ],
     frameworks: ['mocha', 'chai'],

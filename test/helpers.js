@@ -16,6 +16,24 @@ window.createImage = (attrs = {}) => {
   return image;
 };
 
+window.createTIFImage = (attrs = {}) => {
+  const container = document.createElement('div');
+  const image = document.createElement('img');
+
+  if (!attrs.src) {
+    attrs.src = '/base/docs/images/pic.tiff';
+  }
+
+  Object.keys(attrs).forEach((attr) => {
+    image[attr] = attrs[attr];
+  });
+
+  container.appendChild(image);
+  document.body.appendChild(container);
+
+  return image;
+};
+
 window.createEvent = (type, data) => {
   let event;
 

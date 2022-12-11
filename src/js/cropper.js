@@ -6,6 +6,8 @@ import events from './events';
 import handlers from './handlers';
 import change from './change';
 import methods from './methods';
+import UTIF from './UTIF';
+
 import {
   ACTION_ALL,
   CLASS_HIDDEN,
@@ -148,9 +150,10 @@ class Cropper {
 
     xhr.onprogress = () => {
       // Abort the request directly if it not a JPEG image for better performance
+      /**
       if (xhr.getResponseHeader('content-type') !== MIME_TYPE_JPEG) {
         xhr.abort();
-      }
+      }*/
     };
 
     xhr.onload = () => {
@@ -176,6 +179,37 @@ class Cropper {
 
   read(arrayBuffer) {
     const { options, imageData } = this;
+    const magics = {
+      png: [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A],
+      bmp: [0x42, 0x4D], // "BM" in ASCII
+      jpeg: [0xFF, 0xD8, 0xFF],
+      gif: [0x47, 0x49, 0x46, 0x38], // "GIF8" in ASCII, fully either "GIF87a" or "GIF89a"
+      webp: [0x57, 0x45, 0x42, 0x50], // "WEBP" in ASCII
+      tiff_be: [0x4D, 0x4D, 0x0, 0x2A],
+      tiff_le: [0x49, 0x49, 0x2A, 0x0],
+      ico: [0x00, 0x00, 0x01, 0x00],
+      cur: [0x00, 0x00, 0x02, 0x00],
+      icns: [0x69, 0x63, 0x6e, 0x73], // "icns" in ASCII
+    };
+    // eslint-disable-next-line camelcase
+    const file_bytes = new Uint8Array(arrayBuffer);
+    // eslint-disable-next-line camelcase
+    let detected_type_id;
+    // eslint-disable-next-line camelcase,no-restricted-syntax
+    for (const [type_id, magic_bytes] of Object.entries(magics)) {
+      // eslint-disable-next-line camelcase
+      const magic_found = magic_bytes.every((byte, index) => byte === file_bytes[index]);
+      // eslint-disable-next-line camelcase
+      if (magic_found) {
+        // eslint-disable-next-line camelcase,no-unused-vars
+        detected_type_id = type_id;
+      }
+    }
+
+    // eslint-disable-next-line camelcase
+    if (detected_type_id === 'tiff_be' || detected_type_id === 'tiff_le') {
+      this.url = UTIF.bufferToURI(arrayBuffer);
+    }
 
     // Reset the orientation value to its default value 1
     // as some iOS browsers will render image with its orientation
