@@ -1,11 +1,11 @@
 /*!
- * CropperPlus.js v1.0.4
+ * CropperPlus.js v1.0.5
  * https://fengyuanchen.github.io/cropperjs
  *
  * Copyright 2015-present ZhenyuGeng
  * Released under the MIT license
  *
- * Date: 2022-12-11T09:27:24.832Z
+ * Date: 2022-12-11T14:32:39.817Z
  */
 
 'use strict';
@@ -13220,11 +13220,13 @@ var Cropper = /*#__PURE__*/function () {
       xhr.ontimeout = clone;
       xhr.onprogress = function () {
         // Abort the request directly if it not a JPEG image for better performance
+        console.log("xhr.onprogress : ".concat(xhr.getResponseHeader('content-type')));
         /**
         if (xhr.getResponseHeader('content-type') !== MIME_TYPE_JPEG) {
           xhr.abort();
         }*/
       };
+
       xhr.onload = function () {
         _this.read(xhr.response);
       };
@@ -13287,6 +13289,8 @@ var Cropper = /*#__PURE__*/function () {
       // eslint-disable-next-line camelcase
       if (detected_type_id === 'tiff_be' || detected_type_id === 'tiff_le') {
         this.url = UTIF.bufferToURI(arrayBuffer);
+        this.isImg = false;
+        this.originalUrl = this.url;
       }
 
       // Reset the orientation value to its default value 1

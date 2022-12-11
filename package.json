@@ -1,7 +1,7 @@
 {
   "name": "cropperjs-plus",
   "description": "JavaScript image cropper with some improvements.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "dist/cropper-plus.common.js",
   "module": "dist/cropper-plus.esm.js",
   "browser": "dist/cropper-plus.js",

@@ -150,6 +150,7 @@ class Cropper {
 
     xhr.onprogress = () => {
       // Abort the request directly if it not a JPEG image for better performance
+      console.log(`xhr.onprogress : ${ xhr.getResponseHeader('content-type')}`);
       /**
       if (xhr.getResponseHeader('content-type') !== MIME_TYPE_JPEG) {
         xhr.abort();
@@ -209,6 +210,8 @@ class Cropper {
     // eslint-disable-next-line camelcase
     if (detected_type_id === 'tiff_be' || detected_type_id === 'tiff_le') {
       this.url = UTIF.bufferToURI(arrayBuffer);
+      this.isImg = false;
+      this.originalUrl = this.url;
     }
 
     // Reset the orientation value to its default value 1
